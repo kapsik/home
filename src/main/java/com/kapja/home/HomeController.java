@@ -21,10 +21,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
-//	HomeServiceImple homeServiceImple;
 	HomeService homeService;
-	
-	
 	
 	/**
 	 * Author: "kapja"
@@ -34,10 +31,12 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
 		logger.debug("home>");
-		System.out.println("home");
-//		List<Map<String, Object>> topMenuList =  homeServiceImple.getTopMenu();
-		List<Map<String, Object>> topMenuList =  homeService.getTopMenu();
+		List<Map<String, Object>> topMenuList =  homeService.getMenu("TM001");
+		List<Map<String, Object>> subMenuList =  homeService.getMenu("TM002");
+		//대메뉴 조회
 		model.addAttribute("topMenuList", topMenuList);
+		//서브메뉴 조회
+		model.addAttribute("subMenuList", subMenuList);
 		return "home";
 	}
 	

@@ -13,8 +13,7 @@ public class HomeDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	List<Map<String, Object>> getTopMenu (){
-		System.out.println("dao> getTopMenu");
-		return sqlSession.selectList("getTopMenu");
+	List<Map<String, Object>> getMenu (String commGrpCd){
+		return sqlSession.selectList("getMenu", commGrpCd);
 	}
 }

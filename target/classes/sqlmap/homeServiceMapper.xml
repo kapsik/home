@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kapja.home.HomeDao">
 
-    <select id="getTopMenu" resultType="HashMap">
+    <select id="getMenu" resultType="HashMap">
 	 	SELECT COMM_GRP_CD
 	        , COMM_GRP_NM
 	        , COMM_CD
 	        , COMM_NM
 		FROM HOME_COMMONDT 
-		WHERE COMM_GRP_CD = 'TM001'
+		WHERE COMM_GRP_CD = #{commGrpCd}
 		ORDER BY COMM_GRP_CD, COMM_CD
     </select>
     

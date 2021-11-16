@@ -4,33 +4,35 @@
 <head>
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style type="text/css">
-body {
+.body {
 	background-color: #015e6e;
 }
-body nav {
+
+.body_nav {
 	outline: 1px dotted black;
 	padding: 1px;
 	margin: 1px;
 }
-body nav ul li {
+
+/* .body_nav_ul_li {
 	list-style-type: none;
 	display: inline;
-	/* float: left; */
 	border: 1px solid black;
 	border-radius: 5px;
 	padding: 2px;
 	margin: 10px;
-	
-}
+} */
 	
 body main section {
 	outline: 1px solid black;
 }
+
 body main section article {
 	outline: 1px dotted black;
 	float: left;
 	width: 50%;
 }
+
 body main section article aside{
 	outline: 1px dotted black;
 	float: right;
@@ -39,20 +41,18 @@ body main section article aside{
 
 body footer {
 	outline: 1px solid black;
-}		
+}	
 </style>
 <script type="text/javascript"></script>
 	<title>Home</title>
 </head>
 
-<body>
+<body class="body">
 	<header>
 		<h1>HOME</h1>
 	</header>
-	<nav>
-		<ul>
-		
-		</ul>
+	<nav class="body_nav">
+		<ul></ul>
 	</nav>
 	<main>
 		<section>
@@ -71,12 +71,23 @@ body footer {
 <script type="text/javascript">
 window.onload = function(){
 	//상단대메뉴 동적생성
-	var navList = "";
+	var topMenuList = "";
+	var subMenuList = "";
 	<c:forEach items="${topMenuList}" var="item">
-		navList += "<li>${item.COMM_NM}</li>"
+		topMenuList += "<li>${item.COMM_NM}</li>"
 	</c:forEach>
-	$('body nav ul').append(navList);
-	
+		
+	$('body nav ul').append(topMenuList);
+	$('.body_nav li').attr("onclick", "fnsubMenu()")
+ 	$('.body_nav li').css({"list-style-type": "none"
+							, "display": "inline-block"
+							, "border": "1px solid black"
+							, "border-radius": "5px"
+							, "padding": "2px"
+							, "margin": "10px"
+							, "cursor": "pointer"
+							, "width": "60px"
+							, "text-align": "center"});
 }
 </script>
 </body>
