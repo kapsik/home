@@ -2,7 +2,11 @@
 <%@ page session="false" %>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style type="text/css">
+body {
+	background-color: #015e6e;
+}
 body nav {
 	outline: 1px dotted black;
 	padding: 1px;
@@ -37,6 +41,7 @@ body footer {
 	outline: 1px solid black;
 }		
 </style>
+<script type="text/javascript"></script>
 	<title>Home</title>
 </head>
 
@@ -46,10 +51,7 @@ body footer {
 	</header>
 	<nav>
 		<ul>
-			<li>Home</li>
-			<li>Me</li>
-			<li>Family</li>
-			<li>Friends</li>
+		
 		</ul>
 	</nav>
 	<main>
@@ -64,6 +66,18 @@ body footer {
 	</main>
 	<footer>
 		<a>youtube</a>
-	</footer>
+	</footer>	
+<script type="text/javascript" src="resources/js/homeTop.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+	//상단대메뉴 동적생성
+	var navList = "";
+	<c:forEach items="${topMenuList}" var="item">
+		navList += "<li>${item.COMM_NM}</li>"
+	</c:forEach>
+	$('body nav ul').append(navList);
+	
+}
+</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.kapja.home;
 
-public class homeVo {
+public class HomeVo {
 	private String commGrpCd;
 	private String commGrpNm;
 	private String commCd;
