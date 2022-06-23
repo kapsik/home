@@ -6,22 +6,42 @@
 <style type="text/css">
 .body {
 	background-color: #015e6e;
+	margin: 0;
 }
 
 .body_nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	outline: 1px dotted black;
-	padding: 1px;
-	margin: 1px;
+	padding: 8px 12px;
+	background-color: hsl(180, 9%, 9%);
+	
 }
 
-/* .body_nav_ul_li {
-	list-style-type: none;
-	display: inline;
-	border: 1px solid black;
-	border-radius: 5px;
-	padding: 2px;
-	margin: 10px;
-} */
+.body_nav ul {
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	justify-content: center;
+	align-content: flex-start;
+}
+
+nav ul li {
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 50px;
+}
+
+nav ul li a + ul {
+	flex-direction: column;
+}
+
+.body_nav ul a{
+	display: block;
+	text-decoration: none;
+	color: white;
+}
 	
 body main section {
 	outline: 1px solid black;
@@ -65,29 +85,71 @@ body footer {
 		</aside>
 	</main>
 	<footer>
-		<a>youtube</a>
+		<a href="#">youtube</a>
 	</footer>	
 <script type="text/javascript" src="resources/js/homeTop.js"></script>
 <script type="text/javascript">
 window.onload = function(){
-	//상단대메뉴 동적생성
+	
+	
+	//A> 전체메뉴 리스트
+	var allMenuJson = ${allMenuJson};
+	
+	//A-1> 주메뉴 리스트
+	var topMenuJson = ${topMenuJson};
+
+	//A-2> 주메뉴 동적 리스트생성
 	var topMenuList = "";
-	var subMenuList = "";
-	<c:forEach items="${topMenuList}" var="item">
-		topMenuList += "<li>${item.COMM_NM}</li>"
-	</c:forEach>
+	
+	for(var i = 0; i < topMenuJson.length; i++){
+		//서브메뉴 아이디부여
+		var firstId = topMenuJson[i]["MENU_CD"];
+		topMenuList += "<li id='" + firstId + "'><a href='#'>"
+		topMenuList += topMenuJson[i]["MENU_NM"];
+		topMenuList += "</a>";
+		topMenuList += "<ul>";
 		
-	$('body nav ul').append(topMenuList);
-	$('.body_nav li').attr("onclick", "fnsubMenu()")
- 	$('.body_nav li').css({"list-style-type": "none"
-							, "display": "inline-block"
-							, "border": "1px solid black"
-							, "border-radius": "5px"
-							, "padding": "2px"
-							, "margin": "10px"
+		//B-1> 해당서브메뉴 리스트
+		var subMenuJson = allMenuJson.filter(function(val){return (val.UPMENU_CD) == topMenuJson[i]["MENU_CD"]});
+		
+		//B-2> 서브메뉴 동적 리스트생성
+		var subMenuList = "";
+		for(var j = 0; j < subMenuJson.length; j++){
+			subMenuList += "<li><a href='#'>";
+			subMenuList += subMenuJson[j]["MENU_NM"].replaceAll(" ","");
+			subMenuList += "</a></li>";
+		}
+		
+		//C-1> 서브메뉴 붙히기
+		topMenuList += subMenuList;
+		
+		topMenuList += "</ul>";
+		topMenuList += "</li>";
+	};
+	
+	//C-2> 동적메튜 붙히기
+	$('.body_nav ul').append(topMenuList);
+//	$('nav ul li ul').css("display","none");
+	
+	//D> li css설정
+	$('.body_nav li').css({"list-style-type": "none"
+//							, "display": "inline-block"
+//							, "border": "1px solid black"
+//							, "border-radius": "5px"
+//							, "padding": "2px"
+//							, "margin": "10px"
 							, "cursor": "pointer"
-							, "width": "60px"
+//							, "width": "60px"
 							, "text-align": "center"});
+	
+	$('.body_nav li a').mouseover(function(){
+		$(this).css("background-color","#00ff355e");
+//		$('nav ul li ul').css("display","flex");
+		});
+	$('.body_nav li a').mouseleave(function(){
+		$(this).css("background-color","")
+//		$('nav ul li ul').css("display","none");
+		});
 }
 </script>
 </body>

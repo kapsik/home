@@ -12,8 +12,18 @@ public class HomeServiceImple implements HomeService{
 HomeDao homeDao;
 	
 	@Override
-	public List<Map<String, Object>> getMenu(String commGrpCd) {
-		return homeDao.getMenu(commGrpCd);
+	public List<Map<String, Object>> getMenu() {
+		return homeDao.getMenu();
+	}
+
+	@Override
+	public List<Map<String, Object>> getTopMenu(String upmenuCd) {
+		return homeDao.getTopMenu(upmenuCd);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getSubMenu(String upmenuCd) {
+		return homeDao.getSubMenu(upmenuCd);
 	}
 
 }

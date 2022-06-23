@@ -3,15 +3,37 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kapja.home.HomeDao">
+	<resultMap type="com.kapja.home.HomeVo" id="HomeVo">
+		<result column="COMM_GRP_CD" property="commGrpCd"/>
+		<result column="COMM_GRP_NM" property="commGrpNm"/>
+		<result column="COMM_CD" property="commCd"/>
+		<result column="COMM_NM" property="commNm"/>
+	</resultMap>
 
     <select id="getMenu" resultType="HashMap">
-	 	SELECT COMM_GRP_CD
-	        , COMM_GRP_NM
-	        , COMM_CD
-	        , COMM_NM
-		FROM HOME_COMMONDT 
-		WHERE COMM_GRP_CD = #{commGrpCd}
-		ORDER BY COMM_GRP_CD, COMM_CD
+		SELECT LEVEL
+		        , MENU_CD
+		        , LPAD(' ', 2*(LEVEL-1))||MENU_NM AS MENU_NM
+		        , UPMENU_CD
+		FROM HOME_MENU
+		START WITH UPMENU_CD IS NULL
+		CONNECT BY PRIOR MENU_CD = UPMENU_CD
+    </select>
+    
+    <select id="getTopMenu" parameterType="String" resultType="HashMap">
+    	SELECT MENU_CD
+       		 , MENU_NM
+		FROM HOME_MENU
+		WHERE 1=1
+		AND UPMENU_CD = #{upmenuCd}
+    </select>
+    
+    <select id="getSubMenu" parameterType="String" resultType="HashMap">
+    	SELECT MENU_CD
+        , MENU_NM
+		FROM HOME_MENU
+		WHERE 1=1
+		AND UPMENU_CD = #{upmenuCd}
     </select>
     
 <!--     <resultMap type="project" id="projectResultMap">

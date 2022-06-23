@@ -13,7 +13,15 @@ public class HomeDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	List<Map<String, Object>> getMenu (String commGrpCd){
-		return sqlSession.selectList("getMenu", commGrpCd);
+	List<Map<String, Object>> getMenu (){
+		return sqlSession.selectList("getMenu");
+	}
+
+	public List<Map<String, Object>> getTopMenu(String upmenuCd) {
+		return sqlSession.selectList("getTopMenu", upmenuCd);
+	}
+
+	public List<Map<String, Object>> getSubMenu(String upmenuCd) {
+		return sqlSession.selectList("getSubMenu", upmenuCd);
 	}
 }
